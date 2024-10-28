@@ -17,12 +17,13 @@ const modalContainer = document.getElementById('modal')
 const alertMsg = document.querySelector('.alertMsg')
 
 // array to hold tasks
-let todos = [{
-    todo: 'wash dishes',
-    todoStatus: 'incomplete'
-}]
+let todos =  JSON.parse(localStorage.getItem('todos')) || [];
+// let todos = [{
+//     todo: 'wash dishes',
+//     todoStatus: 'incomplete'
+// }]
 
-renderTasks()
+renderTodos()
 
 addTaskBtn.addEventListener('click', () => {
     addInput()
@@ -41,7 +42,7 @@ function addInput(){
             todoStatus: 'incomplete'
         })
         renderAlert('success')
-        renderTasks()
+        renderTodos()
     }
 }
 
@@ -92,11 +93,13 @@ function checkSimilarity(newTodo) {
 }
 
 // function to render tasks
-function renderTasks(){
+function renderTodos(){
+    // create array to hold incomplete todos for rendering
     let incompleteTodos = todos.filter((todo) => {
         return todo.todoStatus === 'incomplete'
     })
 
+    // render array
     tasksContainer.innerHTML = incompleteTodos.length ?
     incompleteTodos.map((todo, index) => `
         <div class="taskCard">
@@ -111,4 +114,22 @@ function renderTasks(){
             </div>
         </div>`).join('') 
         :`<p class="emptyTaskList">There have been no new tasks added.</p>`
+
+    // save new todos to local storage
+    localStorage.setItem('todos', JSON.stringify(todos));
+
+    // button event listeners
+    document.querySelectorAll('.cardDeleteBtn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            deleteTodo(btn.dataset.index)
+        })
+    })
+        
+
+}
+
+// function to delete todo and rerender the section
+function deleteTodo(index) {
+    todos.splice(index, 1);
+    renderTodos();
 }

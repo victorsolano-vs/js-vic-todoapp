@@ -130,6 +130,11 @@ html {
   transition: background 0.2s ease-in;
 }
 
+.cardStatus {
+  color: rgb(119, 117, 117);
+  font-size: 14px;
+}
+
 .active {
   background: rgb(66, 65, 65);
 }
