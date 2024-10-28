@@ -18,15 +18,25 @@ const alertMsg = document.querySelector('.alertMsg')
 
 // array to hold tasks
 let todos =  JSON.parse(localStorage.getItem('todos')) || [];
-// let todos = [{
-//     todo: 'wash dishes',
-//     todoStatus: 'incomplete'
-// }]
 
+// initial render
 renderTodos()
 
 addTaskBtn.addEventListener('click', () => {
     addInput()
+})
+
+completedTasksBtn.addEventListener('click', () => {
+    renderCompletedTodos()
+})
+myTasksBtn.addEventListener('click', () => {
+    renderTodos()
+})
+
+addTaskInputBox.addEventListener('keydown', (event) => {
+    if(event.key === 'Enter'){
+        addInput()
+    }
 })
 
 function addInput(){
@@ -44,6 +54,8 @@ function addInput(){
         renderAlert('success')
         renderTodos()
     }
+
+    addTaskInputBox.value = ''
 }
 
 // function to render Alert msg when adding input
@@ -124,7 +136,13 @@ function renderTodos(){
             deleteTodo(btn.dataset.index)
         })
     })
-        
+    document.querySelectorAll('.cardDoneBtn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            completedTodo(btn.dataset.index)
+            console.log(todos[btn.dataset.index])
+        })
+    })
+    
 
 }
 
@@ -132,4 +150,28 @@ function renderTodos(){
 function deleteTodo(index) {
     todos.splice(index, 1);
     renderTodos();
+}
+
+function completedTodo(index){
+    console.log(todos[index])
+    todos[index].todoStatus = 'complete'
+    renderTodos()
+}
+
+function renderCompletedTodos() {
+    // create array to hold completed todos for rendering
+    let completeTodos = todos.filter((todo) => {
+        return todo.todoStatus === 'complete'
+    })
+
+    tasksContainer.innerHTML = completeTodos.length ?
+    completeTodos.map((todo) => `
+        <div class="taskCard">
+            <div class="textContainer">
+                <p class="cardTitle">${todo.todo}</p>
+                <p class="cardStatus">${todo.taskStatus}</p>
+            </div>
+        </div>
+    `).join('') 
+    : `<p class="emptyTaskList">There have been no completed tasks.</p>`
 }
