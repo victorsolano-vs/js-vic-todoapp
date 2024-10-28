@@ -149,10 +149,30 @@ html{
 }
 
 .active{
-    background-color: red;
+    background:rgb(66, 65, 65);
 }
 
 .emptyTaskList{
     color: rgb(148, 144, 144);
     text-align: center;
 }
+
+// alert message
+.alertMsg{
+    opacity: 0;
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.show{
+    opacity: 1;
+    visibility: visible;
+}
+
