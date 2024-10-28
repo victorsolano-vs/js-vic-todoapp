@@ -160,4 +160,67 @@ html {
 .show {
   opacity: 1;
   visibility: visible;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  min-width: 350px;
+  border-radius: 10px;
+  padding: 1rem;
+  background: rgb(43, 42, 42);
+  border: 1px solid rgb(85, 84, 84);
+}
+
+.newTaskContainer {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.editTaskInput {
+  border: 1px solid rgb(85, 84, 84);
+  border-radius: 3px;
+  background: rgb(43, 42, 42);
+  color: white;
+  padding: 0.3rem 0.2rem;
+}
+.editTaskInput:focus {
+  outline: none;
+}
+
+.saveNewTaskBtn {
+  width: -moz-fit-content;
+  width: fit-content;
+  align-self: flex-end;
+  justify-self: baseline;
+}
+
+.saveNewTaskBtn, #closeBtn {
+  font-size: 14px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  color: white;
+  border: 1px solid rgb(85, 84, 84);
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.2s ease-in;
+}
+.saveNewTaskBtn:hover, #closeBtn:hover {
+  background: rgb(66, 65, 65);
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  pointer-events: auto;
+  display: none;
+  z-index: 9;
 }/*# sourceMappingURL=styles.css.map */

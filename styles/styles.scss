@@ -180,4 +180,69 @@ html{
     opacity: 1;
     visibility: visible;
 }
+// modal styles
 
+.modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    min-width: 350px;
+    border-radius: 10px;
+    padding: 1rem;
+    background: rgb(43, 42, 42);
+    border: $border-dark;
+}
+
+.newTaskContainer{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    
+}
+
+.editTaskInput{
+    border: $border-dark;
+    border-radius: 3px;
+    background: rgb(43, 42, 42);
+    color: white;
+
+    padding: 0.3rem 0.2rem;
+    &:focus{
+        outline: none;
+    }
+}
+
+.saveNewTaskBtn{
+    width: fit-content;
+    align-self: flex-end;
+    justify-self: baseline;
+}
+
+.saveNewTaskBtn, #closeBtn{
+    font-size: 14px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+    color: white;
+    border: $border-dark;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.2s ease-in;
+
+    &:hover{
+        background:rgb(66, 65, 65) ;
+    }
+}
+
+.overlay{
+    background: rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: absolute;
+    pointer-events: auto;
+    display: none;
+    z-index: 9;
+}

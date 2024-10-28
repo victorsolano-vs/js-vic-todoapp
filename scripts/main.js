@@ -18,7 +18,6 @@ const alertMsg = document.querySelector('.alertMsg')
 
 // array to hold tasks
 let todos =  JSON.parse(localStorage.getItem('todos')) || [];
-
 // initial render
 renderTodos()
 
@@ -110,10 +109,13 @@ function renderTodos(){
     let incompleteTodos = todos.filter((todo) => {
         return todo.todoStatus === 'incomplete'
     })
-
+console.log(todos)
     // render array
-    tasksContainer.innerHTML = incompleteTodos.length ?
-    incompleteTodos.map((todo, index) => `
+    tasksContainer.innerHTML = ''
+    todos.forEach((todo, index) => {
+
+        todo.todoStatus === 'incomplete' ? 
+        tasksContainer.innerHTML += `
         <div class="taskCard">
             <div class="textContainer">
                 <p class="cardTitle">${todo.todo}</p>
@@ -124,8 +126,15 @@ function renderTodos(){
                 <button class="cardBtn cardEditBtn" data-index="${index}">Edit</button>
                 <button class="cardBtn cardDeleteBtn" data-index="${index}">Delete</button>
             </div>
-        </div>`).join('') 
-        :`<p class="emptyTaskList">There have been no new tasks added.</p>`
+        </div>
+        `
+        : tasksContainer.innerHTML += ''
+
+    })
+
+    if(tasksContainer.innerHTML === ''){
+        tasksContainer.innerHTML = `<p class="emptyTaskList">There have been no new tasks added.</p>`
+    }
 
     // save new todos to local storage
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -139,11 +148,14 @@ function renderTodos(){
     document.querySelectorAll('.cardDoneBtn').forEach((btn) => {
         btn.addEventListener('click', () => {
             completedTodo(btn.dataset.index)
-            console.log(todos[btn.dataset.index])
         })
     })
-    
-
+    document.querySelectorAll('.cardEditBtn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            console.log(btn.dataset.index)
+            openModal(btn.dataset.index)
+        })
+    })
 }
 
 // function to delete todo and rerender the section
@@ -153,7 +165,6 @@ function deleteTodo(index) {
 }
 
 function completedTodo(index){
-    console.log(todos[index])
     todos[index].todoStatus = 'complete'
     renderTodos()
 }
@@ -169,9 +180,49 @@ function renderCompletedTodos() {
         <div class="taskCard">
             <div class="textContainer">
                 <p class="cardTitle">${todo.todo}</p>
-                <p class="cardStatus">${todo.taskStatus}</p>
+                <p class="cardStatus">${todo.todoStatus}</p>
             </div>
         </div>
     `).join('') 
     : `<p class="emptyTaskList">There have been no completed tasks.</p>`
+}
+
+function openModal(index){
+    modalContainer.innerHTML = `
+    <div class = 'modal'>
+        <button id="closeBtn">X</button>
+        <p class="currentTask"></p>
+        <div class="newTaskContainer">
+            <input type="text" name="" id="" class="editTaskInput">
+            <button class="saveNewTaskBtn">
+                Save Changes
+            </button>
+        </div>
+    </div>
+    `
+    document.querySelector('.overlay').style.display = 'block'
+
+    document.getElementById('closeBtn').addEventListener('click', () => {
+        closeModal()
+    })
+
+    document.querySelector('.saveNewTaskBtn').addEventListener('click', () => {
+        const newTodo = document.querySelector('.editTaskInput').value.trim()
+        
+        if(newTodo && newTodo.toLowerCase() !== todos[index].todo.toLowerCase()){
+            todos[index].todo = newTodo
+            renderTodos()
+            closeModal()
+        } else {
+            alert('The new task is either empty or the same task was repeated.')
+        }
+    })
+
+
+
+}
+
+function closeModal() {
+    modalContainer.innerHTML = ''
+    document.querySelector('.overlay').style.display = 'none';
 }
