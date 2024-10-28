@@ -22,9 +22,7 @@ let todos = [{
     todoStatus: 'incomplete'
 }]
 
-// addTaskInputBox.addEventListener('keydown', (event) => {
-//     console.log(event)
-// })
+renderTasks()
 
 addTaskBtn.addEventListener('click', () => {
     addInput()
@@ -43,6 +41,7 @@ function addInput(){
             todoStatus: 'incomplete'
         })
         renderAlert('success')
+        renderTasks()
     }
 }
 
@@ -94,5 +93,22 @@ function checkSimilarity(newTodo) {
 
 // function to render tasks
 function renderTasks(){
-    
+    let incompleteTodos = todos.filter((todo) => {
+        return todo.todoStatus === 'incomplete'
+    })
+
+    tasksContainer.innerHTML = incompleteTodos.length ?
+    incompleteTodos.map((todo, index) => `
+        <div class="taskCard">
+            <div class="textContainer">
+                <p class="cardTitle">${todo.todo}</p>
+                <p class="cardStatus">${todo.todoStatus}</p>
+            </div>
+            <div class="cardBtns">
+                <button class="cardBtn cardDoneBtn" data-index="${index}">Done</button>
+                <button class="cardBtn cardEditBtn" data-index="${index}">Edit</button>
+                <button class="cardBtn cardDeleteBtn" data-index="${index}">Delete</button>
+            </div>
+        </div>`).join('') 
+        :`<p class="emptyTaskList">There have been no new tasks added.</p>`
 }
