@@ -165,6 +165,7 @@ html{
 // alert message
 .alertMsg{
     opacity: 0;
+    z-index: 999;
     position: absolute;
     top: 2%;
     left: 50%;

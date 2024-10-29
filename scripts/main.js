@@ -27,9 +27,11 @@ addTaskBtn.addEventListener('click', () => {
 
 completedTasksBtn.addEventListener('click', () => {
     renderCompletedTodos()
+    toggleActiveBtn('completedTasksBtn')
 })
 myTasksBtn.addEventListener('click', () => {
     renderTodos()
+    toggleActiveBtn('myTasksBtn')
 })
 
 addTaskInputBox.addEventListener('keydown', (event) => {
@@ -105,11 +107,7 @@ function checkSimilarity(newTodo) {
 
 // function to render tasks
 function renderTodos(){
-    // create array to hold incomplete todos for rendering
-    let incompleteTodos = todos.filter((todo) => {
-        return todo.todoStatus === 'incomplete'
-    })
-console.log(todos)
+
     // render array
     tasksContainer.innerHTML = ''
     todos.forEach((todo, index) => {
@@ -208,21 +206,33 @@ function openModal(index){
 
     document.querySelector('.saveNewTaskBtn').addEventListener('click', () => {
         const newTodo = document.querySelector('.editTaskInput').value.trim()
-        
-        if(newTodo && newTodo.toLowerCase() !== todos[index].todo.toLowerCase()){
+
+        if(!newTodo){
+            renderAlert('empty')
+        } else if(newTodo.toLowerCase() === todos[index].todo.toLowerCase()){
+            renderAlert('same')
+        } else if(checkSimilarity(newTodo)){
+            renderAlert('same')
+        } else {
             todos[index].todo = newTodo
             renderTodos()
             closeModal()
-        } else {
-            alert('The new task is either empty or the same task was repeated.')
         }
     })
-
-
-
 }
 
 function closeModal() {
     modalContainer.innerHTML = ''
     document.querySelector('.overlay').style.display = 'none';
+}
+
+
+
+
+
+function toggleActiveBtn (activeButton) {
+    document.querySelectorAll('.sectionChangerBtn').forEach((btn) => {
+        btn.classList.remove('active')
+        document.querySelector(`.${activeButton}`).classList.add('active')
+    })
 }
