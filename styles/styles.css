@@ -24,7 +24,7 @@ html {
   margin: 1rem 0 1rem 0;
 }
 
-.sectionChangerBtn {
+.sectionChangerBtn, .clearTodosBtn {
   font-size: 16px;
   min-width: 167px;
   padding: 0.3rem 0.8rem;
@@ -34,11 +34,15 @@ html {
   cursor: pointer;
   transition: background 0.2s ease-in;
 }
-.sectionChangerBtn:hover {
+.sectionChangerBtn:hover, .clearTodosBtn:hover {
   background: rgb(66, 65, 65);
 }
 
-.myTasksBtn, .completedTasksBtn {
+.clearButtonContainer {
+  margin-top: 1rem;
+}
+
+.myTasksBtn, .completedTasksBtn, .clearTodosBtn {
   background: rgb(53, 52, 52);
 }
 

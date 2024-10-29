@@ -15,6 +15,8 @@ const tasksContainer = document.querySelector('.tasksContainer')
 const modalContainer = document.getElementById('modal')
 // alert message
 const alertMsg = document.querySelector('.alertMsg')
+// clear todos
+const clearBtn = document.querySelector('.clearTodosBtn')
 
 // array to hold tasks
 let todos =  JSON.parse(localStorage.getItem('todos')) || [];
@@ -38,6 +40,14 @@ addTaskInputBox.addEventListener('keydown', (event) => {
     if(event.key === 'Enter'){
         addInput()
     }
+})
+
+clearBtn.addEventListener('click', () => {
+    console.log('hi')
+    localStorage.clear()
+    location.reload()
+    renderTodos()
+    // renderAlert('clear')
 })
 
 function addInput(){
@@ -64,6 +74,14 @@ function renderAlert(alertType) {
     alertMsg.innerHTML = ''
     alertMsg.classList.add('show')
 
+    if(alertType === 'clear'){
+        alertMsg.style.background = 'rgba(24,204,39,0.5)'
+        alertMsg.innerHTML = `
+            <div class = "alertText">
+                <p>All todos have been successfully cleared/</p>
+            </div>
+        `
+    }
     if(alertType === 'empty'){
         alertMsg.style.background = 'rgba(184,59,59,0.5)'
         alertMsg.innerHTML = `
