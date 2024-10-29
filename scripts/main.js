@@ -42,7 +42,7 @@ addTaskInputBox.addEventListener('keydown', (event) => {
 
 function addInput(){
     let newTodo = addTaskInputBox.value.trim()
-    console.log(newTodo)
+
     if(!newTodo){
         renderAlert('empty')
     } else if(checkSimilarity(newTodo)){
@@ -150,7 +150,6 @@ function renderTodos(){
     })
     document.querySelectorAll('.cardEditBtn').forEach((btn) => {
         btn.addEventListener('click', () => {
-            console.log(btn.dataset.index)
             openModal(btn.dataset.index)
         })
     })
