@@ -200,6 +200,11 @@ html{
     border: $border-dark;
 }
 
+.currentTask{
+    color: white;
+    margin-top: 1rem;
+}
+
 .newTaskContainer{
     margin-top: 1rem;
     display: flex;

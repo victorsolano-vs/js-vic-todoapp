@@ -43,11 +43,11 @@ addTaskInputBox.addEventListener('keydown', (event) => {
 })
 
 clearBtn.addEventListener('click', () => {
-    console.log('hi')
+
     localStorage.clear()
-    location.reload()
+    todos = []
     renderTodos()
-    // renderAlert('clear')
+
 })
 
 function addInput(){
@@ -203,10 +203,11 @@ function renderCompletedTodos() {
 }
 
 function openModal(index){
+
     modalContainer.innerHTML = `
     <div class = 'modal'>
         <button id="closeBtn">X</button>
-        <p class="currentTask"></p>
+        <p class="currentTask">Current Task: ${todos[index].todo}</p>
         <div class="newTaskContainer">
             <input type="text" name="" id="" class="editTaskInput">
             <button class="saveNewTaskBtn">
